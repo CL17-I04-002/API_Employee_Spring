@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,7 @@ public class EmployeeController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(employeeIservice.Save(employee));
 	}
 	@GetMapping("/{id}")
+	///@PathVariable es una anotación en Spring que se usa para vincular una variable en la URL con un parámetro en el método controlador
 	public ResponseEntity<?> read(@PathVariable(value = "id") Long id){
 		Optional<Employee> oEmployee = employeeIservice.findById(id);
 		
@@ -58,5 +60,17 @@ public class EmployeeController {
 				.stream(employeeIservice.findAll().spliterator(), false)
 				.collect(Collectors.toList());
 		return employee;
+	}
+	@PutMapping("/{id}")
+	public ResponseEntity<?> update(@PathVariable(value = "id") long id, @RequestBody Employee employee){
+		if(employee == null) {
+			return ResponseEntity.badRequest().body("No se puede actualizar un empleado que sea NULL");
+		}
+		if(employeeIservice.findById(id).isPresent()) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(employeeIservice.updateEmployee(id, employee));
+		}
+		else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 }

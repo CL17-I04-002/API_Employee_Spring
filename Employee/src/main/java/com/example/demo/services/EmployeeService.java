@@ -51,9 +51,28 @@ public class EmployeeService implements EmployeeIservice{
 	}
 
 	@Override
+	@Transactional
 	public void deleteEmployee(long id) {
 		// TODO Auto-generated method stub
 		employeeRepository.deleteById(id);
+	}
+	@Override
+	@Transactional
+	public Employee updateEmployee(long id, Employee employee) {
+		Optional<Employee> employeeToUpdate = employeeRepository.findById(id);
+		if(!employeeToUpdate.isPresent()) {
+			return null;
+		}
+		else {
+			employeeToUpdate.get().setName(employee.Name);
+			employeeToUpdate.get().setLastName(employee.LastName);
+			employeeToUpdate.get().setHoursWorked(employee.HoursWorked);
+			employeeToUpdate.get().setJob(employee.Job);
+			employeeToUpdate.get().setSalary(employee.Salary);
+			
+			return employeeRepository.save(employeeToUpdate.get());
+		}
+		
 	}
 
 }
