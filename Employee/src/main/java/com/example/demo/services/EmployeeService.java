@@ -71,8 +71,6 @@ public class EmployeeService implements EmployeeIservice{
 			employeeToUpdate.get().setSalary(employee.Salary);
 			
 			return employeeRepository.save(employeeToUpdate.get());
-		}
-		
+		}	
 	}
-
 }
