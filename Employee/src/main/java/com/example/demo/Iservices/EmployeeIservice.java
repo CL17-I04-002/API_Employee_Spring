@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.entity.Employee;
 
+///Con esta anotación asignamos como un bean a nuestra interfaz
 @Component
 public interface EmployeeIservice {
 	public Iterable<Employee> findAll();
@@ -16,4 +17,5 @@ public interface EmployeeIservice {
 	public Optional<Employee> findById(long id);
 	public Employee Save(Employee employee);
 	public void deleteEmployee(long id);
+	public Employee updateEmployee(long id, Employee employee);
 }

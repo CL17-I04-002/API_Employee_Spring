@@ -39,6 +39,9 @@ public class Employee implements Serializable{
 		this.Job = Job;
 		this.Salary = Salaray;
 	}
+	public Employee() {
+		
+	}
 	public void setId(int id) {
 		Id = id;
 	}
